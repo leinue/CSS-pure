@@ -1,0 +1,95 @@
+.版本 2
+
+.程序集 窗口程序集1
+.程序集变量 xml, XmlDocument
+
+.子程序 _按钮1_被单击
+.局部变量 isLoaded, 逻辑型
+.局部变量 fileHandle, 整数型
+.局部变量 chattingRecrd, 文本型
+.局部变量 moPos, 整数型, , , const msgObject position
+.局部变量 allMsgObj, 文本型, , "0"
+.局部变量 i, 整数型
+
+fileHandle ＝ 打开文件 (取当前目录 () ＋ “/all.txt”, 1, )
+chattingRecrd ＝ 读入文本 (fileHandle, )
+chattingRecrd ＝ 彗星URL解码_UTF8 (chattingRecrd)
+
+' chattingRecrd ＝ #hh
+
+moPos ＝ 寻找文本 (chattingRecrd, #msgObjToken, , 假)
+getMsgObj (chattingRecrd, allMsgObj)
+
+.计次循环首 (取数组成员数 (allMsgObj), i)
+    输出调试文本 (allMsgObj [i])
+    联系人列表.加入项目 (allMsgObj [i], )
+.计次循环尾 ()
+关闭文件 (fileHandle)
+
+.子程序 取文本中间内容, 文本型
+.参数 文本, 文本型
+.参数 开始内容, 文本型
+.参数 结束内容, 文本型
+.局部变量 开始文本, 整数型
+.局部变量 中间内容, 文本型
+.局部变量 结束文本, 整数型
+.局部变量 开始内容长度, 整数型
+
+开始内容长度 ＝ 取文本长度 (开始内容)
+开始文本 ＝ 寻找文本 (文本, 开始内容, , 真)
+结束文本 ＝ 寻找文本 (文本, 结束内容, 开始文本 ＋ 取文本长度 (结束内容), 真)
+中间内容 ＝ 取文本中间 (文本, 开始文本 ＋ 开始内容长度, 结束文本 － 开始文本 － 开始内容长度)
+返回 (中间内容)
+
+.子程序 getMsgObj
+.参数 allMsg, 文本型
+.参数 allObj, 文本型, 参考 数组
+.局部变量 lineSplit, 文本型, , "0"
+.局部变量 lineLeft, 文本型
+.局部变量 msgObjTokenLength, 整数型
+.局部变量 i, 整数型
+.局部变量 j, 整数型
+.局部变量 msgObject, 文本型, , "0"
+.局部变量 allMsgObject, 文本型, , "0"
+.局部变量 objCount, 整数型
+
+objCount ＝ 0
+lineSplit ＝ 分割文本 (allMsg, #换行符, )
+msgObjTokenLength ＝ 取文本长度 (#msgObjToken)
+.计次循环首 (取数组成员数 (lineSplit), i)
+    lineLeft ＝ 取文本左边 (lineSplit [i], msgObjTokenLength)
+    .如果 (lineLeft ＝ #msgObjToken)
+        msgObject ＝ 分割文本 (lineSplit [i], “:”, )
+        加入成员 (allMsgObject, msgObject [2])
+    .否则
+
+    .如果结束
+
+.计次循环尾 ()
+objCount ＝ 取数组成员数 (allMsgObject)
+i ＝ 0
+j ＝ 0
+.计次循环首 (objCount, j)
+    .计次循环首 (objCount, i)
+        .如果 (i ＋ j ＜ objCount)
+            .如果 (allMsgObject [i] ＝ allMsgObject [i ＋ j])
+                加入成员 (allObj, allMsgObject [i])
+            .否则
+
+            .如果结束
+
+        .否则
+
+        .如果结束
+
+    .计次循环尾 ()
+.计次循环尾 ()
+
+
+.子程序 getContactMsg
+
+
+
+.子程序 __启动窗口_创建完毕
+
+
